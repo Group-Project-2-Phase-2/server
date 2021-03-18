@@ -1,5 +1,5 @@
 const { Users } = require('../models')
-const {  verify, randomize } = require('../helpers/passwordHelper.js')
+const {  verify } = require('../helpers/passwordHelper.js')
 const { sign } = require('../helpers/jwtHelper.js')
 
 class authController {
@@ -36,7 +36,7 @@ class authController {
                     if (verify(formData.password, data.password)){
                         let returnData = {
                             id: data.id,
-                            name: data.name
+                            username: data.username
                         }
                         returnData.access_token = sign(returnData)
                         response.status(200).json({success:true,data: returnData})
