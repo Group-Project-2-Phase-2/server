@@ -21,36 +21,42 @@ class roomController {
                     }
                 ]
             },
-            defaults : {
-                status: 1,
-                UserIdA : request.userData.id
-            }
         })
             .then(data => {
-                if (data.UserIdA === request.userData.id || data.UserIdB === request.userData.id) {
-                    response.status(200).json(data)
-                }else{
-                    if (data.UserIdA) {
-                        roomId = data.id
-                        return Rooms.update({
-                            UserIdB : request.userData.id
-                        },{
-                            where:{
-                                id: data.id
-                            }
-                        })
+                if (data) {
+                    if (data.UserIdA === request.userData.id || data.UserIdB === request.userData.id) {
+                        response.status(200).json(data)
                     }else{
-                        return Rooms.update({
-                            UserIdA : request.userData.id
-                        },{
-                            where:{
-                                id: data.id
-                            }
-                        })
+                        if (data.UserIdA) {
+                            roomId = data.id
+                            return Rooms.update({
+                                UserIdB : request.userData.id
+                            },{
+                                where:{
+                                    id: data.id
+                                }
+                            })
+                        }else{
+                            return Rooms.update({
+                                UserIdA : request.userData.id
+                            },{
+                                where:{
+                                    id: data.id
+                                }
+                            })
+                        }
                     }
+                }else{
+                    return Rooms.create({
+                                status: 1,
+                                UserIdA : request.userData.id
+                            })
                 }
             })
             .then(data => {
+                if (!roomId) {
+                    roomId = data.id
+                }
                 return Rooms.findOne({
                     where: {
                         id: roomId
