@@ -1,4 +1,5 @@
 const errHandler = (err, request, response, next) => {
+    console.log(err);
     if (err.name) {
         if (err.name == "SequelizeValidationError" || err.name == "SequelizeUniqueConstraintError"  || err.name == "SequelizeDatabaseError") {
             let errors = []
