@@ -64,6 +64,9 @@ class roomController {
                 })
             })
             .then(data => {
+                if (data.UserIdA && data.UserIdB) {
+                    global.io.emit('matchmakeComplete', data);
+                }
                 response.status(200).json(data)
             })
             .catch(err => {
