@@ -27,7 +27,7 @@ io.on('connection', (socket) => {
     socket.on('sendCard', (data) => {
         console.log(data);
         let {id, username} = verifyToken(data.access_token)
-        io.emit('sendAll', {card: data.cardFromVue, userId: id, username, room: data.room});
+        io.emit('sendAll', {card: data.cardFromVue, id, username, room: data.room});
     });
 });
 
