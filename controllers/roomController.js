@@ -90,6 +90,10 @@ class roomController {
             }
         })
             .then(data => {
+                let returnData = {
+                    id : request.params.id
+                }
+                global.io.emit('enemyDisconnected', returnData);
                 response.status(200).json({msg: 'room successfully deleted'})
             })
             .catch(err => {
