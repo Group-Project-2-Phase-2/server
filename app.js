@@ -11,6 +11,7 @@ const port = process.env.PORT || 3000
 const app = express()
 const http = require('http').createServer(app)
 const io = require('socket.io')(http);
+global.io = io; 
 
 app.use(cors())
 app.use(express.urlencoded({extended: true}))
@@ -24,6 +25,7 @@ io.on('connection', (socket) => {
     console.log('a user connected');
 
     socket.on('sendCard', (data) => {
+        console.log(data);
         let {id, username} = verifyToken(data.access_token)
         io.emit('sendAll', {card: data.cardFromVue, id, username, room: data.room});
     });
