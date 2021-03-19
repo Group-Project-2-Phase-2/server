@@ -22,10 +22,12 @@ class authController {
             })
     }
     static login(request, response, next) {
+        console.log("masuk sini");
         let formData = {
             username: request.body.username,
             password: request.body.password
         }
+        console.log(formData, "<<<<<<<<<");
         Users.findOne({
             where: {
                 username: formData.username

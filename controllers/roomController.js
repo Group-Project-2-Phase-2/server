@@ -3,7 +3,7 @@ const {Op, json} = require('sequelize')
 
 class roomController {
     static matchmake(request, response, next){
-        let roomId
+        let roomId;
         Rooms.findOne({
             where: {
                 [Op.or] : [
